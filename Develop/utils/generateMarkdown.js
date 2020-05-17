@@ -1,14 +1,26 @@
 function generateMarkdown(data) {
   return `
- badges: ${data.badges}
- 
- project: ${data.project}
+  #[${data.project}](#${data.project})  ${data.badges}
+ <br>
  description: ${data.description}
- TOC: ${data.contents}
- instalation: ${data.install}
- Usage: ${data.usage}
- License: ${renderLicenseBadge(data.license, data.profile, data.project)}
+ <br>
+
+ ###${genTableOfContents(data.contents)}
+ ###
+ ###
+
+ ## [Installation](#Installation)
+ 
+  <code>${data.install}</code>
+  
+## [Usage](#Usage)
+
+  <code>${data.usage}</code>
+
+ Licenses: ${renderLicenseBadge(data.license, data.profile, data.project)}
+
  Contributors: ${data.contributors}
+
  Tests: ${data.tests}
  Pic: ${data.picture}
  Profile: ${data.profile}
@@ -16,6 +28,13 @@ function generateMarkdown(data) {
 `;
 }
 
+function genTableOfContents(string){
+  const newArray = string.split(" ");
+  const mapArray = newArray.map(heading => ("###[" + heading + "](#" + heading + ")\n\n"));//append markdown to headings
+
+  const finalString= mapArray.join("");
+  return finalString;
+}
 
 function generateProjectUrl(github, title) {
   const kebabCaseTitle = title.toLowerCase().split(" ").join(" ");

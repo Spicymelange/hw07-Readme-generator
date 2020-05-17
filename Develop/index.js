@@ -5,13 +5,13 @@ const generateMarkdown = require("./utils/generateMarkdown");
 
 const questions = [
   {
-    type: "list",
+    type: "checkbox",
     message: "Choose a badge:",
     name: "badges",
     choices: [
       "[![Build Status](https://travis-ci.com/username/projectname.svg?branch=master)](https://travis-ci.com/username/projectname)",
-      "[Downloads]https://img.shields.io/github/downloads/user/reponame/total?style=plastic",
-      "[Number of Forks]/github/forks/micromatch/micromatch",
+      "[![Downloads](https://img.shields.io/github/downloads/user/reponame/total?style=plastic)]",
+      "[![Number of Forks](/github/forks/micromatch/micromatch)]",
     ],
   },
   {
@@ -25,8 +25,8 @@ const questions = [
     name: "description",
   },
   {
-    type: "input",
-    message: "Table of Contents",
+    type: "editor",
+    message: "Please type up your headings in the editor: ",
     name: "contents",
   },
   {
@@ -87,12 +87,12 @@ var tableOfContents = `## Table of Contents
 
 // console.log(tableOfContents);
 
+
 function init() {
     inquirer.prompt(questions)
         .then(answers => {
-            console.log("____________________________________");
+          console.log("____________________________________");
             const md = generateMarkdown(answers);
-            console.log("markdown: " + md, "answers: " + answers);
             fs.writeFile("README.md", md, function (err) {
                 if (err) {
                     throw err;
@@ -102,7 +102,7 @@ function init() {
     });
 }
 
-
+              
 
 
 init();
